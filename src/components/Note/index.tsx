@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { useScopedI18n } from '@/lib/i18n/client'
+import Textarea from '@/components/Textarea'
 import styles from './index.module.scss'
 
 interface INoteComponentProps {
@@ -14,8 +15,6 @@ function NoteComponent(props: INoteComponentProps) {
   const { value = '', onChange, placeholder } = props
   const t = useScopedI18n('note')
   const [noteValue, setNoteValue] = useState(value)
-  const [displayValue, setDisplayValue] = useState(value) // 用于显示计数的值
-  const [isComposing, setIsComposing] = useState(false) // 中文输入状态
   const maxLength = 20
 
   // 常用备注选项
@@ -27,46 +26,18 @@ function NoteComponent(props: INoteComponentProps) {
     t('quickNotes.contact')
   ]
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value
-    // 在中文输入过程中，不限制字数，等待输入确认后再限制
-    if (isComposing || newValue.length <= maxLength) {
-      setNoteValue(newValue)
-      // 只有在非中文输入状态下才更新显示值和触发onChange
-      if (!isComposing) {
-        setDisplayValue(newValue)
-        onChange?.(newValue)
-      }
-    }
-  }
-
-  const handleCompositionStart = () => {
-    setIsComposing(true)
-  }
-
-  const handleCompositionEnd = (e: React.CompositionEvent<HTMLTextAreaElement>) => {
-    setIsComposing(false)
-    const newValue = e.currentTarget.value
-    // 中文输入结束后，检查字数限制并更新显示值
+  const handleInputChange = (newValue: string) => {
     if (newValue.length <= maxLength) {
       setNoteValue(newValue)
-      setDisplayValue(newValue)
       onChange?.(newValue)
-    } else {
-      // 超过限制时，截取到最大长度
-      const truncatedValue = newValue.slice(0, maxLength)
-      setNoteValue(truncatedValue)
-      setDisplayValue(truncatedValue)
-      onChange?.(truncatedValue)
     }
   }
 
   const handleQuickNoteClick = (note: string) => {
-    const separator = displayValue.length > 0 ? ', ' : ''
-    const newValue = displayValue + separator + note
+    const separator = noteValue.length > 0 ? ', ' : ''
+    const newValue = noteValue + separator + note
     if (newValue.length <= maxLength) {
       setNoteValue(newValue)
-      setDisplayValue(newValue)
       onChange?.(newValue)
     }
   }
@@ -78,17 +49,14 @@ function NoteComponent(props: INoteComponentProps) {
       </h3>
       
       <div className={styles.inputContainer}>
-        <textarea
+        <Textarea
           value={noteValue}
           onChange={handleInputChange}
-          onCompositionStart={handleCompositionStart}
-          onCompositionEnd={handleCompositionEnd}
           placeholder={placeholder || t('placeholder')}
           className={styles.textarea}
+          showCounter={true}
+          maxLength={maxLength}
         />
-        <div className={styles.counter}>
-          {displayValue.length} / {maxLength}
-        </div>
       </div>
 
       <div className={styles.tagsContainer}>

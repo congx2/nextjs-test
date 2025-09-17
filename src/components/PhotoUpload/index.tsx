@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useScopedI18n } from '@/lib/i18n/client'
 import styles from './index.module.scss'
 import Checkbox from '../Checkbox'
+import Textarea from '../Textarea'
 
 interface IPhotoUploadComponentProps {
   onChange?: (data: { 
@@ -23,8 +24,6 @@ function PhotoUploadComponent(props: IPhotoUploadComponentProps) {
   const t = useScopedI18n('photoUpload')
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [note, setNote] = useState('')
-  const [displayNote, setDisplayNote] = useState('') // 用于显示计数的值
-  const [isComposing, setIsComposing] = useState(false) // 中文输入状态
   const [quantity, setQuantity] = useState(1)
   
   const maxNoteLength = 30
@@ -47,48 +46,17 @@ function PhotoUploadComponent(props: IPhotoUploadComponentProps) {
     setSelectedOptions(newSelectedOptions)
     onChange?.({
       selectedOptions: newSelectedOptions,
-      note: displayNote,
+      note,
       quantity
     })
   }
 
-  const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value
-    if (isComposing || newValue.length <= maxNoteLength) {
-      setNote(newValue)
-      if (!isComposing) {
-        setDisplayNote(newValue)
-        onChange?.({
-          selectedOptions,
-          note: newValue,
-          quantity
-        })
-      }
-    }
-  }
-
-  const handleCompositionStart = () => {
-    setIsComposing(true)
-  }
-
-  const handleCompositionEnd = (e: React.CompositionEvent<HTMLTextAreaElement>) => {
-    setIsComposing(false)
-    const newValue = e.currentTarget.value
+  const handleNoteChange = (newValue: string) => {
     if (newValue.length <= maxNoteLength) {
       setNote(newValue)
-      setDisplayNote(newValue)
       onChange?.({
         selectedOptions,
         note: newValue,
-        quantity
-      })
-    } else {
-      const truncatedValue = newValue.slice(0, maxNoteLength)
-      setNote(truncatedValue)
-      setDisplayNote(truncatedValue)
-      onChange?.({
-        selectedOptions,
-        note: truncatedValue,
         quantity
       })
     }
@@ -100,7 +68,7 @@ function PhotoUploadComponent(props: IPhotoUploadComponentProps) {
     setQuantity(newQuantity)
     onChange?.({
       selectedOptions,
-      note: displayNote,
+      note,
       quantity: newQuantity
     })
   }
@@ -111,7 +79,7 @@ function PhotoUploadComponent(props: IPhotoUploadComponentProps) {
       setQuantity(newQuantity)
       onChange?.({
         selectedOptions,
-        note: displayNote,
+        note,
         quantity: newQuantity
       })
     }
@@ -123,7 +91,7 @@ function PhotoUploadComponent(props: IPhotoUploadComponentProps) {
       setQuantity(newQuantity)
       onChange?.({
         selectedOptions,
-        note: displayNote,
+        note,
         quantity: newQuantity
       })
     }
@@ -148,18 +116,13 @@ function PhotoUploadComponent(props: IPhotoUploadComponentProps) {
       </div>
 
       <div className={styles.noteSection}>
-        <div className={styles.noteInput}>
-          <textarea
-            value={note}
-            onChange={handleNoteChange}
-            onCompositionStart={handleCompositionStart}
-            onCompositionEnd={handleCompositionEnd}
-            placeholder={t('notePlaceholder')}
-          />
-          <div className={styles.counter}>
-            {displayNote.length} / {maxNoteLength}
-          </div>
-        </div>
+        <Textarea
+          value={note}
+          onChange={handleNoteChange}
+          placeholder={t('notePlaceholder')}
+          showCounter={true}
+          maxLength={maxNoteLength}
+        />
       </div>
 
       <div className={styles.quantitySection}>
