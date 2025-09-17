@@ -1,0 +1,7 @@
+export { default as NoteComponent } from './Note'
+export { default as CheckoutPanel } from './CheckoutPanel'
+export { default as CashCollectionComponent } from './CashCollection'
+export { default as PaperReceiptComponent } from './PaperReceipt'
+export { default as PhotoUploadComponent } from './PhotoUpload'
+export { default as Checkbox } from './Checkbox'
+export { default as LanguageSwitcher } from './LanguageSwitcher'

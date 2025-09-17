@@ -1,0 +1,85 @@
+{
+  "common": {
+    "price": "¥ {amount}",
+    "required": "Required",
+    "optional": "Optional",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back"
+  },
+  "app": {
+    "title": "Express Order System",
+    "subtitle": "This is a Next.js + React project with server-side rendering support",
+    "features": {
+      "ssr": {
+        "title": "🚀 Server-Side Rendering",
+        "description": "Pages are pre-rendered on the server, providing better SEO and first screen loading performance"
+      },
+      "typescript": {
+        "title": "⚡ TypeScript Support", 
+        "description": "Complete TypeScript support provides type safety and better development experience"
+      },
+      "tools": {
+        "title": "🔧 Modern Toolchain",
+        "description": "Integrated with ESLint, hot reload and other modern development tools to improve development efficiency"
+      }
+    }
+  },
+  "note": {
+    "title": "Note",
+    "placeholder": "Say something to the courier......",
+    "quickNotes": {
+      "envelope": "+File Envelope",
+      "bag": "+Packaging Bag",
+      "box": "+Carton Box",
+      "stairs": "+Need Climb Stairs",
+      "contact": "+Please Contact Before Delivery"
+    }
+  },
+  "checkoutPanel": {
+    "title": "Checkout Panel",
+    "total": "Total: ",
+    "submit": "Submit Order",
+    "submitSuccess": "Order submitted successfully!"
+  },
+  "cashCollection": {
+    "title": "Cash Collection",
+    "customer": "Contract Customer",
+    "nonCustomer": "Non-Contract Customer",
+    "cardNumber": "Collection Card Number",
+    "cardNumberPlaceholder": "Please enter monthly contract collection card number",
+    "amount": "Collection Amount",
+    "amountPlaceholder": "Please enter collection amount"
+  },
+  "paperReceipt": {
+    "title": "Paper Receipt",
+    "options": {
+      "signature": "Signature",
+      "stamp": "Stamp",
+      "idCard": "Register ID Card",
+      "receiveDate": "Register Receive Date",
+      "receiverPhone": "Register Receiver Phone"
+    },
+    "notePlaceholder": "If there are other signing requirements, please note here",
+    "quantity": "Number of Receipt Sheets: ",
+    "quantityHint": "Maximum 99 sheets*",
+    "unit": "sheet",
+    "footer": "After successful delivery, SF Express will send back the signed and stamped receipt"
+  },
+  "photoUpload": {
+    "title": "Photo Upload",
+    "options": {
+      "signature": "Signature",
+      "stamp": "Stamp", 
+      "idCard": "Register ID Card",
+      "receiveDate": "Register Receive Date",
+      "receiverPhone": "Register Receiver Phone"
+    },
+    "notePlaceholder": "If there are other signing requirements, please note here",
+    "quantity": "Number of Photos",
+    "quantityHint": "Maximum 5 photos*",
+    "unit": "photo",
+    "footer": "Take photos of signed documents and upload them. Receipt photos can be viewed and downloaded in the SF Express mini-program/app order page - electronic stub"
+  }
+}

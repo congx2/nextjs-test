@@ -1,0 +1,33 @@
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  margin: 0;
+  cursor: pointer;
+  
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.label {
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+  
+  .disabled & {
+    cursor: not-allowed;
+  }
+}
